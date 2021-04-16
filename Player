@@ -1,0 +1,26 @@
+class Player:
+    def __init__(self, playerVal, playerName, marker=None):
+        self.player = playerVal
+        self.name = playerName
+        self.setMarker(playerVal,marker)
+        self.setPlayStatus(playBool = False)
+        self.winner(False)
+        
+    def __call__(self):
+        if self.player == 0:
+            return [str(self.name), 'Player #2', 'Marker = "' + str(self.marker) + '"']
+        else:
+            return [str(self.name),'Player #' + str(self.player), 'Marker = "' + str(self.marker) + '"']
+    
+    def setPlayStatus(self, playBool):
+        self.playing = playBool
+        
+    def setMarker(self, playerVal, marker):
+        if marker is not None:
+            self.marker = marker
+        elif marker == None and playerVal > 0:
+            self.marker = MARKER[playerVal-1]
+        else:
+            self.marker == MARKER[1]
+    def winner(self, winBool):
+        self.win = winBool
