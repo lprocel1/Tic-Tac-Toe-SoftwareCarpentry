@@ -1,4 +1,4 @@
-import twoPlayerSolver
+import twoPlayerShell
 
 def twoPlayerGame():
     size = 3
