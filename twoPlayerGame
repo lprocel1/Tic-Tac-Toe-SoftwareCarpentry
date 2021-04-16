@@ -1,0 +1,23 @@
+import twoPlayerSolver
+
+def twoPlayerGame():
+    size = 3
+    board = createBoard(size)
+    player1 = Player(1,'Linda')
+    player1.setPlayStatus(True)
+    player2 = Player(2,'Tester')
+    player = None
+    print(createBoard(size))
+    while INPROGRESS:
+        if player1.playing:
+            player = player1
+        else: player = player2
+        print(''+player.name+"'s turn!")
+        a = input('Where would you like to move? x,y format:     ')
+        userMove = tuple(int(x) for x in a.split(","))
+        switchPlay = makeMove(board, player, userMove, size)
+        print(populatedBoard(board, size))
+        INPROGRESS = checkBoard(board, size, player)
+        if switchPlay: switchPlayers(player1, player2)
+        
+    playerWin(player1, player2)
