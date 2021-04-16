@@ -1,0 +1,139 @@
+MARKER = ['x','o']
+PLAYER_ONE = 1
+PLAYER_TWO = 2
+PLAYER_COMP = 0
+COMP_GAME = True
+INPROGRESS = True
+
+import Player
+            
+def checkBoard(board, size, player):
+    #TODO update for use of GUI
+        grid = [[0 for a in range(size)] for b in range(size)]
+        for i in range(len(board)):
+            grid[int(i/size)][int(i%size)] = board[i]
+            
+        def checkCol(grid, size):
+            for col in range(size):
+                markersum=0
+                for row in range(size):
+                    if grid[row][col] == player.marker:
+                        markersum +=1
+                if markersum == size:
+                    return True
+            return False    
+                        
+        def checkRow(grid, size):
+            for row in range(size):
+                markersum=0
+                for col in range(size):
+                    if grid[row][col] == player.marker:
+                        markersum +=1
+                if markersum == size:
+                    return True
+            return False
+        
+        def checkDiagonal(grid, size):
+            forwardDiag = 0
+            backwardDiag = 0
+            for i in range(size):
+                if grid[i][i] == player.marker:
+                    forwardDiag +=1
+                if grid[size-i-1][size-i-1] == player.marker:
+                    backwardDiag+=1
+            if forwardDiag == size or backwardDiag == size:
+                return True
+            return False
+        
+        def isFull(grid, size):
+            for row in range(size):
+                for col in range(size):
+                    if grid[row][col] == 0:
+                        return False
+            return True
+        
+        if checkCol(grid, size) or checkRow(grid, size) or checkDiagonal(grid, size):
+            player.winner(True)
+            return False
+        elif isFull(grid, size):
+            return False
+        else:
+            return True
+        
+def createBoard(size):
+    # TODO: Do I need this?
+    return [0 for a in range(size*size)]
+
+def populatedBoard(board, size):
+    # TODO: phase out for GUI
+    # TODO should the beas in the checkboard above?
+    index = 0
+    newGrid = [[0 for a in range(size)] for b in range(size)]
+    for row in range(size):
+        for col in range(size):
+            newGrid[row][col] = board[index]
+            index +=1
+    return newGrid
+            
+
+def switchPlayers(player1, player2):
+    if player1.playing == True:
+        player1.setPlayStatus(False)
+        player2.setPlayStatus(True)
+    else:
+        player2.setPlayStatus(False)
+        player1.setPlayStatus(True)
+
+def makeMove(board, player, userMove, size):
+    def convertMove(userMove, size):
+        return userMove[0] + userMove[1]*size
+        
+    def onBoard(userMove, board):
+        if userMove >= len(board) or userMove < 0:
+            return False
+        return True
+    
+    #TODO: update for use of GUI 
+    move = convertMove(userMove,size)
+    if onBoard(move, board) and board[move] == 0:
+        board[move] = player.marker
+        return True
+    else:
+        print("Invalid move. Try again")
+        return False
+              
+def playerWin(player1, player2):
+    if player1.win:
+         print('Congratulations, ' + player1.name +'! You won!' +
+               'You beat ' + player2.name )
+    elif player2.win and player2.player ==0:
+         print('Sad news, '+ player1.name + '! You lost to '+
+                player2.name )
+    elif player2.win:
+        print('Congratulations, ' + player2.name +'! You won!'+
+               'You beat ' + player1.name )
+    else:
+        print("It's a tie! better luck next time!")
+    
+if __name__ == "__main__":
+    playerUnitTest()
+    size = 3
+    board = createBoard(size)
+    player1 = Player(1,'Linda')
+    player1.setPlayStatus(True)
+    player2 = Player(2,'Tester')
+    player = None
+    print(createBoard(size))
+    while INPROGRESS:
+        if player1.playing:
+            player = player1
+        else: player = player2
+        print(''+player.name+"'s turn!")
+        a = input('Where would you like to move? x,y format:     ')
+        userMove = tuple(int(x) for x in a.split(","))
+        switchPlay = makeMove(board, player, userMove, size)
+        print(populatedBoard(board, size))
+        INPROGRESS = checkBoard(board, size, player)
+        if switchPlay: switchPlayers(player1, player2)
+        
+    playerWin(player1, player2)
