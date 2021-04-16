@@ -1,0 +1,8 @@
+def playerUnitTest():
+    player1 = Player(1, 'Linda', "#")
+    print(player1.name)
+    print(player1())
+    print(player1.playing)
+    player1.setPlayStatus(True)
+    print(player1.playing)   
+    print(player1.marker)
