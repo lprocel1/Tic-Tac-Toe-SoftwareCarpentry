@@ -6,6 +6,7 @@ class CurrentPlayer:
         self.setMarker(player1,player2)
         self.setName(player1, player2)
         self.playerStorage=[player1,player2]
+        self.full=False
     
     def setMarker(self, player1, player2):
         if player1.playing:
@@ -28,7 +29,11 @@ class CurrentPlayer:
             player1.setPlayStatus(True)
         self.setMarker(player1, player2)
         self.setName(player1, player2)
-    
+        
+    def isFull(self):
+        self.full = True
+        print(self.full)
+        
     def gameOver(self):
         if self.playerStorage[0].win or self.playerStorage[1].win:
             return True

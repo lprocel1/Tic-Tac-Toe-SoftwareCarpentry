@@ -40,7 +40,7 @@ def CompWindow(player, size):
             tk.Grid.columnconfigure(frame, col, weight=1)
             button1 = tk.Button(
                 frame,
-                text=" ",
+                text=" ", font = ('Helvetica 10 bold'),
                 command=lambda r=row, c=col: BC.playCompButton(
                     buttonlist, player, r, c, frame, size, root
                 ),

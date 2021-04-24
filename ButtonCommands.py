@@ -4,7 +4,6 @@ from PIL import Image, ImageTk
 import tkinter as tk
 
 def displayWinner(root,player):
-
     """
     Display the winning Player's name along with congratulations image.
 
@@ -20,20 +19,30 @@ def displayWinner(root,player):
     None.
 
     """
-
+    def resize_image(event):
+        new_width = event.width
+        new_height = event.height
+        image = copy_of_image.resize((new_width, new_height))
+        photo = ImageTk.PhotoImage(image)
+        label.config(image = photo)
+        label.image = photo #avoid garbage collection
+    
     root.destroy()
     winDoe = tk.Tk()
-    winDoe.geometry('500x500')
-    tk.Label(winDoe, text="Congratulations, " + player.name+"!").grid(column=0,row=0, columnspan=3,sticky=tk.N+tk.E+tk.S+tk.W)
+    winDoe.geometry('900x600')
+    tk.Label(winDoe, text="Congratulations, " + player.name+"!").pack()
     im = Image.open('congratz.png')
-    pic = ImageTk.PhotoImage(im)
-    cv=tk.Canvas(winDoe)
 
-    tk.Label(winDoe, image=pic).grid(row=1,column=0,columnspan=3,sticky=tk.N+tk.E+tk.S+tk.W)
-    quitbtn = tk.Button(winDoe,text='Exit',command = lambda: winDoe.destroy()).grid(column=1, row=3)
+    copy_of_image = im.copy()
+    photo = ImageTk.PhotoImage(im)
+    label = tk.Label(winDoe, image = photo)
+    label.bind('<Configure>', resize_image)
+    label.pack(fill=tk.BOTH, expand = tk.YES)
+
+    cv=tk.Canvas(winDoe)
+    quitbtn = tk.Button(winDoe,text='Exit',command = lambda: winDoe.destroy()).pack() 
     winDoe.mainloop()
     
-
 def displayCompWinner(root,player):
     """
     Display the end results of the single person game.
@@ -50,21 +59,73 @@ def displayCompWinner(root,player):
     None.
 
     """
+    def resize_image(event):
+        new_width = event.width
+        new_height = event.height
+        image = copy_of_image.resize((new_width, new_height))
+        photo = ImageTk.PhotoImage(image)
+        label.config(image = photo)
+        label.image = photo #avoid garbage collection
+    
     root.destroy()
     winDoe = tk.Tk()
-    winDoe.geometry('500x500')
+    winDoe.geometry('900x600')
     if player.name != 'Computer':
-        tk.Label(winDoe, text="Congratulations, " + player.name+"!").grid(column=0,row=0, columnspan=3,sticky=tk.N+tk.E+tk.S+tk.W)
+        tk.Label(winDoe, text="Congratulations, " + player.name+"!").pack()
         im = Image.open('congratz.png')
     else:
         player.switchPlayers()
-        tk.Label(winDoe, text="Sorry, " + player.name+"!").grid(column=0,row=0, columnspan=3,sticky=tk.N+tk.E+tk.S+tk.W)
+        tk.Label(winDoe, text="Sorry, " + player.name+"!").pack()
         im = Image.open('loser.png')
-    pic = ImageTk.PhotoImage(im)
-    cv=tk.Canvas(winDoe)
+    
+    copy_of_image = im.copy()
+    photo = ImageTk.PhotoImage(im)
+    label = tk.Label(winDoe, image = photo)
+    label.bind('<Configure>', resize_image)
+    label.pack(fill=tk.BOTH, expand = tk.YES)
 
-    tk.Label(winDoe, image=pic).grid(row=1,column=0,columnspan=3,sticky=tk.N+tk.E+tk.S+tk.W)
-    quitbtn = tk.Button(winDoe,text='Exit',command = lambda: winDoe.destroy()).grid(column=1, row=3)
+    cv=tk.Canvas(winDoe)
+    quitbtn = tk.Button(winDoe,text='Exit',command = lambda: winDoe.destroy()).pack() 
+    winDoe.mainloop()
+    
+def displayTie(root,player):
+    """
+    Display the end results of the tied person game.
+
+    Parameters
+    ----------
+    root : TK() window
+        Board Window containing the game board.
+    player : CurrentPlayer object
+        Current player to select a button.
+
+    Returns
+    -------
+    None.
+
+    """
+    def resize_image(event):
+        new_width = event.width
+        new_height = event.height
+        image = copy_of_image.resize((new_width, new_height))
+        photo = ImageTk.PhotoImage(image)
+        label.config(image = photo)
+        label.image = photo #avoid garbage collection
+        
+    root.destroy()
+    winDoe = tk.Tk()
+    winDoe.geometry('900x600')
+    tk.Label(winDoe, text="Oops, it's a tie!").pack() 
+    im = Image.open('tie.png')
+    
+    copy_of_image = im.copy()
+    photo = ImageTk.PhotoImage(im)
+    label = tk.Label(winDoe, image = photo)
+    label.bind('<Configure>', resize_image)
+    label.pack(fill=tk.BOTH, expand = tk.YES)
+
+    cv=tk.Canvas(winDoe)
+    quitbtn = tk.Button(winDoe,text='Exit',command = lambda: winDoe.destroy()).pack() 
     winDoe.mainloop()
     
 def playCompButton(buttonlist, player, r, c, frame, size, root):
@@ -101,7 +162,9 @@ def playCompButton(buttonlist, player, r, c, frame, size, root):
             board.append(btn['text'])
     
     TTC.checkBoard(board, size, player)
-    if player.gameOver():
+    if player.full and not player.gameOver():
+        displayTie(root,player)
+    elif player.gameOver():
         displayWinner(root,player)
     else:
         player.switchPlayers()
@@ -138,7 +201,6 @@ def playButton(buttonlist, player, r, c, frame, size, root):
     None.
 
     """
-
     buttonlist[r][c]['text']=player.marker
     buttonlist[r][c]['state'] = 'disabled'
     board = []
@@ -147,7 +209,9 @@ def playButton(buttonlist, player, r, c, frame, size, root):
             board.append(btn['text'])
     
     TTC.checkBoard(board, size, player)
-    if player.gameOver():
+    if player.full:
+        displayTie(root,player)
+    elif player.gameOver():
         displayWinner(root,player)
     else:
         player.switchPlayers()

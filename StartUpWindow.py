@@ -1,5 +1,4 @@
 
-
 def StartUpWindow():
     """
     Startup window for Two-Player game that allows players to enter their names.
@@ -10,7 +9,6 @@ def StartUpWindow():
         Returns the names of players in the game as strings.
 
     """
-    
     import tkinter as tk
 
     def getinput():
@@ -29,7 +27,6 @@ def StartUpWindow():
     tk.Label(startup, text="enter player names below, then click 'submit'").grid(
         columnspan=2, row=1, column=0
     )
-
 
     tk.Label(startup, text="Player 1: ").grid(row=2, column=0)
     tk.Label(startup, text="Player 2: ").grid(row=3, column=0)
