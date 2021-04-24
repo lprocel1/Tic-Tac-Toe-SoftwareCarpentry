@@ -12,8 +12,6 @@ def Selection():
     """
     import tkinter as tk
 
-    compBool = False
-
     def clickSize(var):
         global size
         size = var.get()
@@ -39,12 +37,6 @@ def Selection():
             tk.Label(frame, text=" Two Player Mode ").grid(
                 row=5, column=1, columnspan=4
             )
-
-    def errorcommand(window):
-        global size
-        global compBool
-        window.destroy()
-        [size, compBool] = Selection()
 
     selection = tk.Tk()
     selection.title("selection menu")
