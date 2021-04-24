@@ -1,6 +1,6 @@
 # Tic-Tac-Toe-SoftwareCarpentry
 
-## Have you ever wanted to play Tic Tac Toe on the computer using a GUI window, just for fun? Do you want to try playing 3x3, 4x4, or 5x5 boards? Are you bored? Look no further. Grab a friend (or not) and check out this hand GUI-based game! This repository generates a customizable Tic Tac Toe game using GUIs in python.
+## Have you ever wanted to play Tic Tac Toe on the computer using a GUI window, just for fun? Do you want to try playing 3x3, 4x4, or 5x5 boards? Are you bored? Look no further. Grab a friend (or not) and check out this handy GUI-based game! This repository generates a customizable Tic Tac Toe game using GUIs in python.
 #### Author: 
 * Linda Procell, email: lprocel1@jhu.edu
 ### This code will generate a series of GUI windows with integrated buttons that allows users to play singe or multi=player Tic Tac Toe games. User input is required for use of this software. 
