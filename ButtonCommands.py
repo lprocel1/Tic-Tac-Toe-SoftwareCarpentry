@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import tkinter as tk
 
 def displayWinner(root,player):
+
     """
     Display the winning Player's name along with congratulations image.
 
@@ -19,6 +20,7 @@ def displayWinner(root,player):
     None.
 
     """
+
     root.destroy()
     winDoe = tk.Tk()
     winDoe.geometry('500x500')
@@ -31,6 +33,7 @@ def displayWinner(root,player):
     quitbtn = tk.Button(winDoe,text='Exit',command = lambda: winDoe.destroy()).grid(column=1, row=3)
     winDoe.mainloop()
     
+
 def displayCompWinner(root,player):
     """
     Display the end results of the single person game.
@@ -135,6 +138,7 @@ def playButton(buttonlist, player, r, c, frame, size, root):
     None.
 
     """
+
     buttonlist[r][c]['text']=player.marker
     buttonlist[r][c]['state'] = 'disabled'
     board = []
