@@ -1,15 +1,26 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr 22 17:37:32 2021
-
-@author: proce
-"""
 
 import ButtonCommands as BC
 import tkinter as tk
 
 
 def Window(player, size):
+
+    """
+    Creates the board game GUI windown for Two-Player Tic Tac Toe
+
+    Parameters
+    ----------
+    player : CurrentPlayer object
+        Current player to select a button.
+    size : int
+        Dimensions of Tic Tac Toe baord: size x size.
+
+    Returns
+    -------
+    None.
+
+    """
+
     root = tk.Tk()
     tk.Grid.rowconfigure(root, 0, weight=1)
     tk.Grid.columnconfigure(root, 0, weight=1)

@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr 22 21:59:04 2021
-
-@author: proce
-"""
 
 MARKER = ['+','o', 'x']
 

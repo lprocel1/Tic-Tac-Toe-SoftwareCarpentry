@@ -1,20 +1,32 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr 22 22:28:31 2021
-
-@author: proce
-"""
 
 
 def tictactoeGame():
+    """
+    Wrapper for the TicTacToe game.
+
+    Returns
+    -------
+    None.
+
+    """
+    
+    import SelectionMenu as sm
     import StartUpWindow as start
     from Player import Player, CurrentPlayer
     import WindowAttempt as wd
+    import ComputerWindow as cwd
 
-    players = start.StartUpWindow()
-    size = 3
+    [size, comp] = sm.Selection()
+    if comp == "Single Player":
+        players = start.StartUpCompWindow()
+    else:
+        players = start.StartUpWindow()
     player1 = Player(1, players[0])
     player1.setPlayStatus(True)
     player2 = Player(2, players[1])
     player = CurrentPlayer(player1, player2)
-    wd.Window(player, size)
+    if comp == "Single Player":
+        cwd.CompWindow(player, size)
+    else:
+        wd.Window(player, size)
+
