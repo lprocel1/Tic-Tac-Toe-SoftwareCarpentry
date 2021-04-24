@@ -9,7 +9,6 @@ def tictactoeGame():
     None.
 
     """
-    
     import SelectionMenu as sm
     import StartUpWindow as start
     from Player import Player, CurrentPlayer
@@ -29,4 +28,3 @@ def tictactoeGame():
         cwd.CompWindow(player, size)
     else:
         wd.Window(player, size)
-

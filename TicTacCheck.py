@@ -1,5 +1,4 @@
 
-
 def checkBoard(board, size, player):
     """
     Check the Tic Tac Toe board for a winner
@@ -57,14 +56,15 @@ def checkBoard(board, size, player):
     def isFull(grid, size):
         for row in range(size):
             for col in range(size):
-                if grid[row][col] == 0:
+                if grid[row][col] == ' ':
                     return False
         return True
     
+    if isFull(grid,size):
+        player.isFull()
+
     if checkCol(grid, size) or checkRow(grid, size) or checkDiagonal(grid, size):
         player.setWinner()
-
-
 
 def ComputerPlayer(board, player, size, buttonlist):
     """
@@ -105,4 +105,3 @@ def onBoard(userMove, board):
     if userMove >= len(board) or userMove < 0:
         return False
     return True
-
