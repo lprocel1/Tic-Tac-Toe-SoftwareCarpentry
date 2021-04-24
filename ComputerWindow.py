@@ -1,10 +1,11 @@
+
 import ButtonCommands as BC
 import tkinter as tk
 
 
-def Window(player, size):
+def CompWindow(player, size):
     """
-    Creates the board game GUI windown for Two-Player Tic Tac Toe
+    Creates the board game GUI windown for Single Player Tic Tac Toe
 
     Parameters
     ----------
@@ -40,7 +41,7 @@ def Window(player, size):
             button1 = tk.Button(
                 frame,
                 text=" ",
-                command=lambda r=row, c=col: BC.playButton(
+                command=lambda r=row, c=col: BC.playCompButton(
                     buttonlist, player, r, c, frame, size, root
                 ),
             )
